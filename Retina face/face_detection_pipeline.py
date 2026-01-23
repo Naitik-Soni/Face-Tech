@@ -31,4 +31,4 @@ if __name__ == "__main__":
     images_path = get_image_paths(INPUT_DIR)
 
     for image_path in images_path[181:187]:
-        main(image_path, SAVE_FACE_LANDMARKS=False)
+        main(image_path, SAVE_FACE_LANDMARKS=True)
