@@ -30,9 +30,9 @@ if __name__ == "__main__":
 
     images_path = get_image_paths(INPUT_DIR)
 
-    # images_path = [
-    #     r"C:\Users\naiti\OneDrive\Pictures\Pictures\Naitik (5).jpg"
-    # ]
+    images_path = [
+        r"P:\FaceTech\Face-Tech\Custom_Data\images\train\09265.png"
+    ]
 
-    for image_path in images_path[:7]:
+    for image_path in images_path:
         main(image_path, SAVE_FACE_LANDMARKS=True)
