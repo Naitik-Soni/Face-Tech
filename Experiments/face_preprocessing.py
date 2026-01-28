@@ -3,25 +3,23 @@ import numpy as np
 
 # face_path = r"P:\FaceTech\Face-Tech\Retina face\Aligned_image.png"
 
-def normalize_face_input(face_path):
-    face = cv2.imread(face_path)
-
-    # Resize face
+def normalize_face_input(face):
+    # Resize
     face = cv2.resize(face, (112, 112))
 
-    # Change the color channel
-    face = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
+    img = face.astype(np.float32)
 
-    # Convert to type float 32
-    face = face.astype(np.float32)
+    # BGR → RGB
+    img = img[:, :, ::-1]
 
-    # Normalize the range (-1 to +1)
-    face = (face - 127.5) / 127.5
+    # Normalize to [-1, 1]
+    img = (img - 127.5) / 128.0
 
-    # Transform for ArcFace input (channel, height, width)
-    face = np.transpose(face, (2, 0, 1))
+    # Add batch dimension ONLY (NHWC)
+    img = np.expand_dims(img, axis=0)
 
-    # Expand the dimensions (batch, channels, height, width)
-    face = np.expand_dims(face, axis=0)
+    # Ensure contiguous
+    img = np.ascontiguousarray(img)
 
-    return face
+    print("SHAPE:", img.shape, "CONTIGUOUS:", img.flags["C_CONTIGUOUS"])
+    return img
